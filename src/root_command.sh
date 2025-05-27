@@ -7,7 +7,9 @@ force=${args[--force]}
 
 __log ()
 {
-	[[ $verbose ]] && echo "[DEBUG] $*"
+	if [[ $verbose ]]; then
+	   echo "[DEBUG] $*"
+	fi
 }
 
 cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/curl"
