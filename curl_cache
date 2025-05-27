@@ -14,11 +14,9 @@ root_command() {
   # src/root_command.sh
   #!/usr/bin/env bash
 
-  # Cache expiration time (15 minutes in seconds)
-  expire_age=900
-
   url=${args[url]}
   verbose=${args[--verbose]}
+  expire_age=${args[--expiration-time]}
 
   __log ()
   {
@@ -71,6 +69,12 @@ curl_cache_usage() {
     # :flag.usage
     printf "  %s\n" "--verbose, -V"
     printf "    Enable verbose logging\n"
+    echo
+
+    # :flag.usage
+    printf "  %s\n" "--expiration-time TIME"
+    printf "    Time in seconds after which to invalidate the cache\n"
+    printf "    %s\n" "Default: 900"
     echo
 
     # :command.usage_fixed_flags
@@ -210,6 +214,20 @@ parse_requirements() {
         shift
         ;;
 
+      # :flag.case
+      --expiration-time)
+
+        # :flag.case_arg
+        if [[ -n ${2+x} ]]; then
+          args['--expiration-time']="$2"
+          shift
+          shift
+        else
+          printf "%s\n" "--expiration-time requires an argument: --expiration-time TIME" >&2
+          exit 1
+        fi
+        ;;
+
       -?*)
         printf "invalid option: %s\n" "$key" >&2
         exit 1
@@ -237,6 +255,9 @@ parse_requirements() {
 
     exit 1
   fi
+
+  # :command.default_assignments
+  [[ -n ${args['--expiration-time']:-} ]] || args['--expiration-time']="900"
 
 }
 
