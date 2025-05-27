@@ -33,23 +33,12 @@
       installPhase = ''
         runHook preInstall
 
-        mkdir $out/
-        cp curl_cache $out/
+        mkdir -p $out/bin 
+        cp curl_cache $out/bin
 
         runHook postInstall
-
       '';
     });
-
-    #
-    # # Utilized by `nix run .#<name>`
-    # apps.x86_64-linux.hello = {
-    #   type = "app";
-    #   program = c-hello.packages.x86_64-linux.hello;
-    # };
-    #
-    # # Utilized by `nix run . -- <args?>`
-    # defaultApp.x86_64-linux = self.apps.x86_64-linux.hello;
 
     # Utilized for nixpkgs packages, also utilized by `nix build .#<name>`
     legacyPackages.${system}.curl_cache = self.packages.${system}.default;
