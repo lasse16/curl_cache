@@ -7,10 +7,13 @@ args:
   required: true
   help: URL to download from
 
-# flags:
+flags:
 # - long: --force
 #   short: -f
-#   help: Overwrite existing files
+#   help: Force request despite of cache
+- long: --verbose
+  short: -V
+  help: Enable verbose logging
 
 examples:
 - curl_cache wttr.in/?format=3
