@@ -13,10 +13,6 @@
   in {
     # # Utilized by `nix flake check`
     # checks.x86_64-linux.test = "tests";
-    #
-    # # Utilized by `nix build .`
-    # defaultPackage.x86_64-linux = c-hello.defaultPackage.x86_64-linux;
-    #
 
     packages.${system}.default = pkgs.stdenv.mkDerivation (finalAttrs: {
       pname = "curl_cache";
@@ -54,10 +50,9 @@
     #
     # # Utilized by `nix run . -- <args?>`
     # defaultApp.x86_64-linux = self.apps.x86_64-linux.hello;
-    #
-    # # Utilized for nixpkgs packages, also utilized by `nix build .#<name>`
-    # legacyPackages.x86_64-linux.hello = c-hello.defaultPackage.x86_64-linux;
-    #
+
+    # Utilized for nixpkgs packages, also utilized by `nix build .#<name>`
+    legacyPackages.${system}.curl_cache = self.packages.${system}.default;
 
     devShell.${system} = pkgs.mkShell {
       name = "curl_cache";
