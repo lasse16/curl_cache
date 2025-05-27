@@ -14,6 +14,10 @@ flags:
 - long: --verbose
   short: -V
   help: Enable verbose logging
+- long: --expiration-time
+  arg: time
+  help: Time in seconds after which to invalidate the cache
+  default: "900"
 
 examples:
 - curl_cache wttr.in/?format=3

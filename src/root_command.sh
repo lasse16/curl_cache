@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
-# Cache expiration time (15 minutes in seconds)
-expire_age=900
-
 url=${args[url]}
 verbose=${args[--verbose]}
+expire_age=${args[--expiration-time]}
 
 __log ()
 {
