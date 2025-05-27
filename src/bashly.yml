@@ -1,6 +1,6 @@
 name: curl_cache
 help: A curl wrapper that stores the result
-version: 0.4.0
+version: 0.5.0
 
 args:
 - name: url

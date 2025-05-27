@@ -16,7 +16,7 @@
 
     packages.${system}.default = pkgs.stdenv.mkDerivation (finalAttrs: {
       pname = "curl_cache";
-      version = "0.4.0";
+      version = "0.5.0";
 
       src = ./.;
 
