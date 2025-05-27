@@ -35,6 +35,7 @@
     # Utilized by `nix develop`
     devShell.${system} = pkgs.mkShell {
       name = "curl_cache";
+      packages = with pkgs; [ bashly ];
     };
   };
 }
