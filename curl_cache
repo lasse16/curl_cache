@@ -17,6 +17,7 @@ root_command() {
   url=${args[url]}
   verbose=${args[--verbose]}
   expire_age=${args[--expiration-time]}
+  force=${args[--force]}
 
   __log ()
   {
@@ -33,7 +34,7 @@ root_command() {
   __log "Cache file = $cache_file"
 
   # Check if cached file exists and is fresh enough
-  if [ -f "$cache_file" ] && [ $(($(date +%s) - $(stat -c %Y "$cache_file"))) -lt $expire_age ]; then
+  if ! [ $force ] && [ -f "$cache_file" ] && [ $(($(date +%s) - $(stat -c %Y "$cache_file"))) -lt $expire_age ]; then
       __log "Cache hit at [$cache_file]"
       cat "$cache_file"
   else
@@ -66,6 +67,11 @@ curl_cache_usage() {
     printf "%s\n" "Options:"
 
     # :command.usage_flags
+    # :flag.usage
+    printf "  %s\n" "--force, -f"
+    printf "    Force request despite of cache\n"
+    echo
+
     # :flag.usage
     printf "  %s\n" "--verbose, -V"
     printf "    Enable verbose logging\n"
@@ -206,6 +212,14 @@ parse_requirements() {
   while [[ $# -gt 0 ]]; do
     key="$1"
     case "$key" in
+      # :flag.case
+      --force | -f)
+
+        # :flag.case_no_arg
+        args['--force']=1
+        shift
+        ;;
+
       # :flag.case
       --verbose | -V)
 
