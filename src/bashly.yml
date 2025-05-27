@@ -1,0 +1,16 @@
+name: curl_cache
+help: A curl wrapper that stores the result
+version: 0.1.0
+
+args:
+- name: url
+  required: true
+  help: URL to download from
+
+# flags:
+# - long: --force
+#   short: -f
+#   help: Overwrite existing files
+
+examples:
+- curl_cache wttr.in/?format=3
