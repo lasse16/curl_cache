@@ -3,6 +3,7 @@
 url=${args[url]}
 verbose=${args[--verbose]}
 expire_age=${args[--expiration-time]}
+force=${args[--force]}
 
 __log ()
 {
@@ -20,7 +21,7 @@ __log "Cache file = $cache_file"
 
 
 # Check if cached file exists and is fresh enough
-if [ -f "$cache_file" ] && [ $(($(date +%s) - $(stat -c %Y "$cache_file"))) -lt $expire_age ]; then
+if ! [ $force ] && [ -f "$cache_file" ] && [ $(($(date +%s) - $(stat -c %Y "$cache_file"))) -lt $expire_age ]; then
     __log "Cache hit at [$cache_file]"
     cat "$cache_file"
 else

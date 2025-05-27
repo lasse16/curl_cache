@@ -8,9 +8,9 @@ args:
   help: URL to download from
 
 flags:
-# - long: --force
-#   short: -f
-#   help: Force request despite of cache
+- long: --force
+  short: -f
+  help: Force request despite of cache
 - long: --verbose
   short: -V
   help: Enable verbose logging
