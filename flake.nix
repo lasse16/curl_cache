@@ -24,7 +24,7 @@
 
       src = ./.;
 
-      buildInputs = with pkgs; [bashly];
+      nativeBuildInputs = with pkgs; [bashly];
 
       buildPhase = ''
         runHook preBuild
