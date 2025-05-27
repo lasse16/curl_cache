@@ -20,12 +20,14 @@
 
       src = ./.;
 
-      nativeBuildInputs = with pkgs; [bashly];
+      nativeBuildInputs = with pkgs; [bashly pandoc installShellFiles];
 
       buildPhase = ''
         runHook preBuild
 
         bashly generate
+        bashly add completions_script
+        bashly render :mandoc docs
 
         runHook postBuild
       '';
@@ -33,10 +35,14 @@
       installPhase = ''
         runHook preInstall
 
-        mkdir -p $out/bin 
-        cp curl_cache $out/bin
+        installBin curl_cache
 
         runHook postInstall
+      '';
+
+      postInstall = ''
+        installShellCompletion --bash --name curl_cache.bash completions.bash
+        installManPage docs/curl_cache.1
       '';
     });
 
