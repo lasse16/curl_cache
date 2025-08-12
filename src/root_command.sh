@@ -31,6 +31,8 @@ else
     # Download and cache with curl
     __log "Cache miss"
     __log "Running new request for [ $url ]"
-    curl ${max_time:+--max-time "$max_time"} -sSfL "$url" > "$cache_file.tmp" && mv "$cache_file.tmp" "$cache_file"
+    curl_command="curl ${max_time:+--max-time "$max_time"} -sSfL $url"
+    __log "curl command: $curl_command"
+    $curl_command > "$cache_file.tmp" && mv "$cache_file.tmp" "$cache_file"
     cat "$cache_file"
 fi
