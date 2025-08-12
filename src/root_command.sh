@@ -4,6 +4,7 @@ url=${args[url]}
 verbose=${args[--verbose]}
 expire_age=${args[--expiration-time]}
 force=${args[--force]}
+max_time=${args[--max-time]}
 
 __log ()
 {
@@ -30,6 +31,6 @@ else
     # Download and cache with curl
     __log "Cache miss"
     __log "Running new request for [ $url ]"
-    curl -sSfL "$url" > "$cache_file.tmp" && mv "$cache_file.tmp" "$cache_file"
+    curl ${max_time:+--max-time "$max_time"} -sSfL "$url" > "$cache_file.tmp" && mv "$cache_file.tmp" "$cache_file"
     cat "$cache_file"
 fi

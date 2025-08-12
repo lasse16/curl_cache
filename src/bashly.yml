@@ -18,6 +18,9 @@ flags:
   arg: time
   help: Time in seconds after which to invalidate the cache
   default: "900"
-
+- long: --max-time
+  arg: seconds
+  help: Time in seconds for maximum trying time
+  default: "5"
 examples:
 - curl_cache wttr.in/?format=3
