@@ -15,7 +15,7 @@ flags:
   short: -V
   help: Enable verbose logging
 - long: --expiration-time
-  arg: time
+  arg: seconds
   help: Time in seconds after which to invalidate the cache
   default: "900"
 - long: --max-time
