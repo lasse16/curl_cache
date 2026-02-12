@@ -14,6 +14,7 @@
     # # Utilized by `nix flake check`
     # checks.x86_64-linux.test = "tests";
 
+
     packages.${system}.default = pkgs.stdenv.mkDerivation (finalAttrs: {
       pname = "curl_cache";
       version = "0.6.0";
@@ -48,6 +49,7 @@
 
     # Utilized for nixpkgs packages, also utilized by `nix build .#<name>`
     legacyPackages.${system}.curl_cache = self.packages.${system}.default;
+    packages.${system}.curl_cache = self.packages.${system}.default;
 
     devShell.${system} = pkgs.mkShell {
       name = "curl_cache";
